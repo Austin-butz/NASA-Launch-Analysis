@@ -1,0 +1,119 @@
+#include "TimeCode.h"
+#include <string>
+
+using namespace std;
+
+long long unsigned int TimeCode::ComponentsToSeconds(unsigned int hr, unsigned int min, unsigned int sec)
+{
+  return ((hr*3600)+(min*60)+(sec));
+}
+
+string TimeCode::ToString() const
+{
+  string output;
+  int temp = t/60;
+  string min = to_string(t/60);
+  string sec = to_string(t%60);
+  string hr = to_string(temp/60);
+  min = to_string(temp%60);
+  output.append(hr);
+  output.append(":");
+  output.append(min);
+  output.append(":");
+  output.append(sec);
+  return output;
+}
+
+void TimeCode::GetComponents(unsigned int& hr, unsigned int& min, unsigned int& sec) const
+{
+  min = t/60;
+  sec = t%60;
+  hr = min/60;
+  min = min%60;
+}
+
+void TimeCode::SetHours(unsigned int hours)
+{
+  unsigned int hr; unsigned int min; unsigned int sec;
+  this->GetComponents(hr, min, sec);
+  if (hr > hours) t -= ((hr-hours)*3600);
+  if (hr < hours) t += ((hours-hr)*3600);
+}
+
+void TimeCode::SetMinutes(unsigned int minutes)
+{
+  unsigned int hr; unsigned int min; unsigned int sec;
+  this->GetComponents(hr, min, sec);
+  if (min > minutes) t -= ((min-minutes)*60);
+  if (min < minutes) t += ((minutes-min)*60);
+}
+  
+void TimeCode::SetSeconds(unsigned int seconds)
+{
+  unsigned int hr; unsigned int min; unsigned int sec;
+  this->GetComponents(hr, min, sec);
+  if (sec > seconds) t -= (sec-seconds);
+  if (sec < seconds) t += (seconds-sec);  
+}
+
+void TimeCode::reset()
+{
+  t = 0;
+}
+
+unsigned int TimeCode::GetHours() const
+{
+  unsigned int hr; unsigned int min; unsigned int sec;
+  this->GetComponents(hr, min, sec);
+  return hr;
+}
+
+unsigned int TimeCode::GetMinutes() const
+{
+  unsigned int hr; unsigned int min; unsigned int sec;
+  this->GetComponents(hr, min, sec);
+  return min;
+}
+
+unsigned int TimeCode::GetSeconds() const
+{
+  unsigned int hr; unsigned int min; unsigned int sec;
+  this->GetComponents(hr, min, sec);
+  return sec;
+}
+
+bool TimeCode::operator == (const TimeCode& other) const
+{
+  if (t == other.t) return true;
+  else return false;
+}
+
+bool TimeCode::operator != (const TimeCode& other) const
+{
+  if (t != other.t) return true;
+  else return false;
+}
+
+bool TimeCode::operator < (const TimeCode& other) const
+{
+  if (t < other.t) return true;
+  else return false;
+}
+
+bool TimeCode::operator <= (const TimeCode& other) const
+{
+  if (t <= other.t) return true;
+  else return false;
+}
+
+bool TimeCode::operator > (const TimeCode & other) const
+{
+  if (t > other.t) return true;
+  else return false;
+}
+  
+bool TimeCode::operator >= (const TimeCode& other) const
+{
+  if (t >= other.t) return true;
+  else return false;
+}
