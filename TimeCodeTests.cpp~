@@ -1,0 +1,228 @@
+
+#include <iostream>
+#include <assert.h>
+using namespace std;
+
+#include "TimeCode.h"
+
+
+void TestComponentsToSeconds(){
+	cout << "Testing ComponentsToSeconds" << endl;
+	
+	// Random but "safe" inputs
+	long long unsigned int t = TimeCode::ComponentsToSeconds(3, 17, 42);
+	assert(t == 11862);
+	
+	// More tests go here!
+	
+	cout << "PASSED!" << endl << endl;
+}
+
+
+void TestDefaultConstructor(){
+	cout << "Testing Default Constructor" << endl;
+	TimeCode tc;
+	
+	//cout << "Testing ToString()" << endl;
+	//cout << "tc: " << tc.ToString() << endl;
+	assert(tc.ToString() == "0:0:0");
+	
+	cout << "PASSED!" << endl << endl;
+}
+
+
+void TestComponentConstructor(){
+	cout << "Testing Component Constructor" << endl;
+	TimeCode tc = TimeCode(0, 0, 0);
+	//cout << "Testing ToString()" << endl;
+	//cout << "tc: " << tc.ToString() << endl;
+	assert(tc.ToString() == "0:0:0");
+	
+	// Random but "safe" inputs
+	TimeCode tc2 = TimeCode(3, 17, 42);
+	//cout << "tc2: " << tc2.ToString() << endl;
+	assert(tc2.ToString() == "3:17:42");
+	
+	// More tests go here!
+	
+	cout << "PASSED!" << endl << endl;
+}
+
+
+void TestGetComponents(){
+	cout << "Testing GetComponents" << endl;
+	
+	unsigned int h;
+	unsigned int m;
+	unsigned int s;
+	
+	// Regular values
+	TimeCode tc = TimeCode(5, 2, 18);
+	tc.GetComponents(h, m, s);
+	assert(h == 5 && m == 2 && s == 18);
+	
+	// More tests go here!
+	
+	cout << "PASSED!" << endl << endl;
+}
+
+
+void TestSetHours() {
+  cout << "Testing SetHours" << endl;
+  unsigned int h;
+  unsigned int m;
+  unsigned int s;
+  TimeCode tc = TimeCode(5, 2, 18);
+  tc.SetHours(7);
+  tc.GetComponents(h, m, s);
+  assert(h == 7 && m == 2 && s == 18);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestSetMinutes() {
+  cout << "Testing SetMinutes" << endl;
+  unsigned int h;
+  unsigned int m;
+  unsigned int s;
+  TimeCode tc = TimeCode(5, 2, 18);
+  tc.SetMinutes(7);
+  tc.GetComponents(h, m, s);
+  assert(h == 5 && m == 7 && s == 18);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestSetSeconds() {
+  cout << "Testing SetSeconds" << endl;
+  unsigned int h;
+  unsigned int m;
+  unsigned int s;
+  TimeCode tc = TimeCode(5, 2, 18);
+  tc.SetSeconds(7);
+  tc.GetComponents(h, m, s);
+  assert(h == 5 && m == 2 && s == 7);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestReset() {
+  cout << "Testing Reset" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  tc.reset();
+  assert(tc.GetTimeCodeAsSeconds() == 0);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestGetHours()
+{
+  cout << "Testing Get Hours" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  assert(tc.GetHours() == 5);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestGetMinutes()
+{
+  cout << "Testing Get Minutes" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  assert(tc.GetMinutes() == 2);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestGetSeconds()
+{
+  cout << "Testing Get Seconds" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  assert(tc.GetSeconds() == 18);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestEqual()
+{
+  cout << "Testing Equality Operator" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  TimeCode tc2 = TimeCode(3, 12, 40);
+  assert((tc == tc2) == false);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestNotEqual()
+{
+  cout << "Testing Inequality Operator" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  TimeCode tc2 = TimeCode(3, 12, 40);
+  assert((tc != tc2) == true);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestLess()
+{
+  cout << "Testing Less Than Operator" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  TimeCode tc2 = TimeCode(3, 12, 40);
+  assert((tc < tc2) == false);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestLessEqual()
+{
+  cout << "Testing Less Than or Equal Operator" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  TimeCode tc2 = TimeCode(3, 12, 40);
+  assert((tc <= tc2) == false);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestGreater()
+{
+  cout << "Testing Greater Than Operator" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  TimeCode tc2 = TimeCode(3, 12, 40);
+  assert((tc > tc2) == true);
+  cout << "PASSED!" << endl << endl;
+}
+
+void TestGreaterEqual()
+{
+  cout << "Testing Greater Than or Equal Operator" << endl;
+  TimeCode tc = TimeCode(5, 2, 18);
+  TimeCode tc2 = TimeCode(3, 12, 40);
+  assert((tc >= tc2) == true);
+  cout << "PASSED!" << endl << endl;
+}
+
+// Test GetHours
+
+// Test GetMinutes
+
+// Many More Tests...
+
+	
+int main(){
+	
+	TestComponentsToSeconds();
+	TestDefaultConstructor();
+	TestComponentConstructor();
+	TestGetComponents();
+	
+	TestSetHours();
+	TestSetMinutes();
+	TestSetSeconds();
+	
+	TestReset();
+	
+	TestGetHours();
+	TestGetMinutes();
+	TestGetSeconds();
+	
+	TestEqual();
+	TestNotEqual();
+	TestLess();
+	TestLessEqual();
+	TestGreater();
+	TestGreaterEqual();
+	
+	//TestGetHours();
+
+	
+	cout << "PASSED ALL TESTS!!!" << endl;
+	return 0;
+}
